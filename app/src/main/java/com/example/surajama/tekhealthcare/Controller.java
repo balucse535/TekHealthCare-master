@@ -5,25 +5,35 @@ package com.example.surajama.tekhealthcare;
  */
 
 import android.app.Application;
-import android.view.ViewConfiguration;
 
-import com.example.surajama.tekhealthcare.models.Customer;
-import com.example.surajama.tekhealthcare.models.Device;
+import com.example.surajama.tekhealthcare.models.device;
+import com.example.surajama.tekhealthcare.models.users;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controller extends Application{
-
     private String userId;
-    private Customer customer = new Customer();
-    private Device device = new Device();
 
-    public Customer getCustomer() {
-        return customer;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
+    private String deviceId;
+    private users user = new users();
+    private List<device> devices = new ArrayList<>();
+    private String dateTimeofLastReading;
+    public String getDateTimeofLastReading() {
+        return dateTimeofLastReading;
+    }
+
+    public void setDateTimeofLastReading(String dateTimeofLastReading) {
+        this.dateTimeofLastReading = dateTimeofLastReading;
+    }
     public String getUserId() {
         return userId;
     }
@@ -31,8 +41,28 @@ public class Controller extends Application{
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
-    public Device getDevices() {
-        return device;
+    public List<device> getDevices()
+    {
+        return devices;
+    }
+    public void addDevice(device dev)
+    {
+        devices.add(dev);
+    }
+    public void removeDevice(int poisition)
+    {
+        devices.remove(poisition);
+    }
+    public device getDevice(int poistion)
+    {
+        return devices.get(poistion);
+    }
+    public void setUser(users user)
+    {
+        this.user=user;
+    }
+    public users getUser()
+    {
+        return this.user;
     }
 }

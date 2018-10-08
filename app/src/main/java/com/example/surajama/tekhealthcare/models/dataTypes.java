@@ -1,6 +1,11 @@
 package com.example.surajama.tekhealthcare.models;
 
 public class dataTypes {
+
+    private String HeartBeatRate;
+    private String FootSteps;
+    private String bloodPreassure;
+
     public String getHeartBeatRate() {
         return HeartBeatRate;
     }
@@ -10,22 +15,18 @@ public class dataTypes {
     }
 
     public String getFootStepsCount() {
-        return FootStepsCount;
+        return FootSteps;
     }
 
     public void setFootStepsCount(String footStepsCount) {
-        FootStepsCount = footStepsCount;
+        FootSteps = footStepsCount;
     }
 
-    public String getBP() {
-        return BP;
+    public String getBloodPreassure() {
+        return bloodPreassure;
     }
 
-    public void setBP(String BP) {
-        this.BP = BP;
+    public void setBloodPreassure(String bloodPreassure) {
+        this.bloodPreassure = bloodPreassure;
     }
-
-    private String HeartBeatRate;
-    private String FootStepsCount;
-    private String BP;
 }

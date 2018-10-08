@@ -26,7 +26,7 @@ import java.util.Date;
 
 public class PushToIot extends Activity {
 
-    EditText did,hr,steps;
+    EditText did,hr,steps,bp;
     TextView daid;
     Button push;
     Date currentTime;
@@ -47,17 +47,21 @@ public class PushToIot extends Activity {
         hr = (EditText) findViewById(R.id.heartRate);
         steps = (EditText) findViewById(R.id.stepData);
         push = (Button) findViewById(R.id.deviceButton);
+        bp = findViewById(R.id.bloodPressure);
         daid = (TextView) findViewById(R.id.devID);
         String ID = getIntent().getStringExtra("Device ID");
         String heartRate = getIntent().getStringExtra("value");
         String StepCount =getIntent().getStringExtra("StepCount");
+        String BP = getIntent().getStringExtra("BloodPressure");
         did.setText(ID);
         hr.setText(heartRate);
         steps.setText(StepCount);
+        bp.setText(BP);
         currentTime= Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        dateTime = df.format(currentTime);
-        Log.i("PushToIot",dateTime);
+
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        dateTime = df2.format(currentTime);
+//        Log.i("PushToIot",dateTime);
         push.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,14 +84,14 @@ public class PushToIot extends Activity {
 
             try
             {
-                URL url = new URL("https://teksystemspoc.cumulocity.com/measurement/measurements");
+                URL url = new URL("https://tek.cumulocity.com/measurement/measurements");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type","application/json");
                 conn.setRequestProperty("charset","UTF-8");
                 conn.setRequestProperty("ver","0.9");
                 conn.setRequestProperty("Accept","application/vnd.com.nsn.cumulocity.measurement+json");
-                conn.setRequestProperty("Authorization","Basic c2thZGhpcmFAdGVrc3lzdGVtcy5jb206VGVrQDEyMw==");
+                conn.setRequestProperty("Authorization","Basic cHBhdnVsdXJAdGVrc3lzdGVtcy5jb206QWJjZDEyMzQ=");
                 String deviceJSON = "{\n" +
                         "    \"c8y_HealthMonitoring\": {\n" +
                         "        \"H\": {\n" +
@@ -96,7 +100,11 @@ public class PushToIot extends Activity {
                         "        },\n" +
                         "         \"D\": {\n" +
                         "            \"value\": "+ steps.getText().toString() + ",\n" +
-                        "            \"unit\":\"KM\"\n" +
+                        "            \"unit\":\"FootSteps\"\n" +
+                        "        },\n" +
+                        "         \"P\": {\n" +
+                        "            \"value\": "+ bp.getText().toString() + ",\n" +
+                        "            \"unit\":\"mmgh\"\n" +
                         "        }\n" +
                         "    },\n" +
                         "    \"time\": \"" + dateTime +"\",\n" +
@@ -162,7 +170,7 @@ public class PushToIot extends Activity {
         @Override
         protected void onProgressUpdate(String... values) {
             //super.onProgressUpdate(values);
-            daid.setText("Data entry DONE and Data id is  "+ values[0]);
+            Toast.makeText(PushToIot.this,"Data entry DONE and Data id is  "+ values[0],Toast.LENGTH_LONG).show();
         }
     }
 }

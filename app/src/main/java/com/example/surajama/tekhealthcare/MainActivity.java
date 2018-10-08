@@ -2,6 +2,8 @@ package com.example.surajama.tekhealthcare;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -15,9 +17,7 @@ import android.widget.TextView;
 import com.example.surajama.tekhealthcare.services.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
-    public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
-    public TextView userID;
+    public TextView userID,top_userID;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private FloatingActionButton fab;
     private boolean isOpen;
@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.devices);
-        userID = findViewById(R.id.userID);
+        userID = findViewById(R.id.userName);
+        top_userID = findViewById(R.id.top_userName);
         setUserID();
         collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         collapsingToolbarLayout.setTitle("Tek HealthCare");
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         logo = findViewById(R.id.logo);
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (scrollRange == -1) {
@@ -62,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         final Intent intent = new Intent(MainActivity.this,DeviceSelection.class);
         intent.putExtra("typeOfDevice",view.getId());
         startActivity(intent);
-
-
     }
 
     public void login(View view) {
@@ -75,14 +75,15 @@ public class MainActivity extends AppCompatActivity {
         final Controller aController = (Controller) MainActivity.this.getApplicationContext();
         if(aController.getUserId() == null){
             userID.setText("GUEST");
+            top_userID.setText("Hello!GUEST");
         }
         else {
             userID.setText(aController.getUserId());
+            top_userID.setText("Hello!"+aController.getUserId());
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void viewMenu() {
-
-
             int x = logo.getRight();
             int y = logo.getBottom()+500;
 
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             topToolbar.setVisibility(View.VISIBLE);
             anim.start();
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void hideMenu()
     {
         int x = topToolbar.getRight();

@@ -15,20 +15,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".HomeActivity"
+            android:alwaysRetainTaskState="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanDevices"></activity>
         <activity android:name=".DeviceScanActivity"></activity>
         <activity android:name=".DeviceActivity"></activity>
         <activity android:name=".DeviceRegistration"></activity>
         <activity android:name=".services.LoginActivity"></activity>
         <activity android:name=".PushToIot"></activity>
+        <activity android:name=".services.UserRegistration"></activity>
         <activity android:name=".DeviceSelection"></activity>
+        <activity android:name=".services.HealthVisualizer"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

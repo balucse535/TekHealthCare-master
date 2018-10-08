@@ -55,23 +55,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"
                 android:background="#f9d7db"/>
-            <EditText
-                android:id="@+id/medicalNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:background="@android:color/transparent"
-                android:drawablePadding="12dp"
-                android:padding="8dp"
-                android:hint="Medical Record Number"
-                android:textColorHint="#ffff"
-                android:maxLines="1"
-                android:drawableLeft="@drawable/ic_confirmation_number_black_24dp"
-                android:layout_marginTop="4dp"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"
-                android:background="#f9d7db"/>
             <FrameLayout
                 android:id="@+id/login"
                 android:layout_width="300dp"
@@ -81,7 +64,6 @@
                 android:background="@drawable/sign_in_btn"
                 android:clickable="true"
                 android:elevation="4dp"
-                android:foreground="?selectableItemBackground"
                 android:onClick="load"
                 android:layout_marginTop="30dp">
 

@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +26,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.surajama.tekhealthcare.models.device;
+
 import java.util.ArrayList;
 
 /**
@@ -39,12 +40,14 @@ public class DeviceScanActivity extends AppCompatActivity {
     private boolean mScanning;
     private Handler mHandler;
     private String deviceModel;
+    private Controller aController;
     private static final int REQUEST_ENABLE_BT = 1;
     // Stops scanning after 10 seconds.
     private static final long SCAN_PERIOD = 10000;
     ListView listView;
-    BluetoothDevice device;
-
+    private BluetoothDevice device;
+    private int rssi;
+    private TextView scanning_text;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +59,9 @@ public class DeviceScanActivity extends AppCompatActivity {
         mBluetoothAdapter = bluetoothManager.getAdapter();
         mBluetoothLeScanner = mBluetoothAdapter.getBluetoothLeScanner();
         deviceModel = getIntent().getStringExtra("model");
-        final Controller aController = (Controller) this.getApplicationContext();
+        aController = (Controller) this.getApplicationContext();
         String userName= aController.getUserId();
+        scanning_text = findViewById(R.id.scanning_text);
     }
 
     @Override
@@ -178,6 +182,7 @@ public class DeviceScanActivity extends AppCompatActivity {
         } else {
             mScanning = false;
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
+
         }
         invalidateOptionsMenu();
     }
@@ -185,17 +190,20 @@ public class DeviceScanActivity extends AppCompatActivity {
     // Adapter for holding devices found through scanning.
     private class LeDeviceListAdapter extends BaseAdapter {
         private ArrayList<BluetoothDevice> mLeDevices;
+        private ArrayList<Integer> mDeviceRssi;
         private LayoutInflater mInflator;
 
         public LeDeviceListAdapter() {
             super();
             mLeDevices = new ArrayList<BluetoothDevice>();
+            mDeviceRssi = new ArrayList<Integer>();
             mInflator = DeviceScanActivity.this.getLayoutInflater();
         }
 
-        public void addDevice(BluetoothDevice device) {
+        public void addDevice(BluetoothDevice device, int rssi) {
             if (!mLeDevices.contains(device)) {
                 mLeDevices.add(device);
+                mDeviceRssi.add(rssi);
             }
         }
 
@@ -232,19 +240,21 @@ public class DeviceScanActivity extends AppCompatActivity {
                 viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
                 viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
                 viewHolder.btn_connect=view.findViewById(R.id.connect);
-                viewHolder.scanningText=view.findViewById(R.id.scanning_text);
+                viewHolder.rssi = view.findViewById(R.id.device_rssi);
                 view.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) view.getTag();
             }
 
             device = mLeDevices.get(i);
+            rssi=mDeviceRssi.get(i);
             final String deviceName = device.getName();
             if (deviceName != null && deviceName.length() > 0)
                 viewHolder.deviceName.setText(deviceName);
             else
                 viewHolder.deviceName.setText(R.string.unknown_device);
             viewHolder.deviceAddress.setText(device.getAddress());
+            viewHolder.rssi.setText(Integer.toString(rssi));
             viewHolder.btn_connect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -256,6 +266,11 @@ public class DeviceScanActivity extends AppCompatActivity {
                         mBluetoothAdapter.stopLeScan(mLeScanCallback);
                         mScanning = false;
                     }
+                    device dev = new device();
+                    dev.setBluetoothDevice(device);
+                    dev.setDeviceMacAddress(device.getAddress());
+                    dev.setDeviceName(device.getName());
+                    aController.addDevice(dev);
                     startActivity(intent);
 
                 }
@@ -270,14 +285,14 @@ public class DeviceScanActivity extends AppCompatActivity {
             new BluetoothAdapter.LeScanCallback() {
 
                 @Override
-                public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+                public void onLeScan(final BluetoothDevice device, final int rssi, byte[] scanRecord) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
                             if(device.getName()!=null&&device.getName().equals(deviceModel))
                             {
-                                mLeDeviceListAdapter.addDevice(device);
+                                mLeDeviceListAdapter.addDevice(device,rssi);
                                 mLeDeviceListAdapter.notifyDataSetChanged();
                             }
 
@@ -289,7 +304,7 @@ public class DeviceScanActivity extends AppCompatActivity {
     static class ViewHolder {
         TextView deviceName;
         TextView deviceAddress;
-        TextView scanningText;
         Button btn_connect;
+        TextView rssi;
     }
 }

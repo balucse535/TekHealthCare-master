@@ -34,7 +34,7 @@ public class CustomBluetoothProfile {
     }
     public static class FootSteps {
         public static UUID service = UUID.fromString("0000fee0-0000-1000-8000-00805f9b34fb");
-        public static UUID notifyCharcteristic = UUID.fromString("00000002-0000-3512-2118-0009af100700");
+        public static UUID notifyCharcteristic = UUID.fromString("00000006-0000-3512-2118-0009af100700");
         public static UUID descriptor = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
 
@@ -43,6 +43,13 @@ public class CustomBluetoothProfile {
         public static UUID service = UUID.fromString("0000fff0-0000-1000-8000-00805f9b34fb");
         public static UUID notifyCharcteristic = UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb");
         public static UUID descriptor = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
+
+    }
+    public static class BP2941{
+        public static UUID service = UUID.fromString("0000fff0-0000-1000-8000-00805f9b34fb");
+        public static UUID notifyCharcteristic = UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb");
+        public static UUID descriptor = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
+        public static UUID WriteCharacteristic = UUID.fromString("0000fff2-0000-1000-8000-00805f9b34fb");
 
 
     }

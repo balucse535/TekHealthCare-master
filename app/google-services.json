@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "282521784230",
+    "firebase_url": "https://tek-health-care.firebaseio.com",
+    "project_id": "tek-health-care",
+    "storage_bucket": "tek-health-care.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282521784230:android:91ffa197a812fe09",
+        "android_client_info": {
+          "package_name": "com.example.surajama.tekhealthcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282521784230-2udrf764h72l00h2vvt8q2g5aa305g63.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX_yVJm5LX2le7bs1hmy6PCmaSU09awnE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

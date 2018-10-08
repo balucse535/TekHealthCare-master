@@ -26,6 +26,10 @@
     <FrameLayout
         android:layout_width="31dp"
         android:layout_height="31dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Device ID"/>
 
     <EditText
         android:id="@+id/deviceID"
@@ -33,19 +37,36 @@
         android:layout_height="wrap_content"
         android:text="Enter the Device ID"
         android:textStyle="bold"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heart Rate"/>
     <EditText
         android:id="@+id/heartRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter the Heart Rate"
         android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step Count"/>
 
     <EditText
         android:id="@+id/stepData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter the step count"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Pressure Reading"/>
+    <EditText
+        android:id="@+id/bloodPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Pressure"
         android:textStyle="bold"/>
     <Button
         android:id="@+id/deviceButton"

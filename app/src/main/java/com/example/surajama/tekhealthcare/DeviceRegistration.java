@@ -11,14 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.surajama.tekhealthcare.models.Device;
+import com.example.surajama.tekhealthcare.models.device;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -40,16 +37,17 @@ public class DeviceRegistration extends Activity {
     String mDeviceAddress;
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
-    private Device EXTRAS_DEVICE;
     private Intent intent;
     private AsyncHttpClient client;
     private StringEntity jsonEntity = null;
+    private String base_path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_registration);
         mDeviceName = getIntent().getStringExtra(EXTRAS_DEVICE_NAME);
         mDeviceAddress = getIntent().getStringExtra(EXTRAS_DEVICE_ADDRESS);
+        base_path = DeviceRegistration.this.getString(R.string.base_url);
         // Toast about the action
         Toast toast = Toast.makeText(DeviceRegistration.this, "Register your Device here", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -58,7 +56,8 @@ public class DeviceRegistration extends Activity {
         did = (EditText) findViewById(R.id.deviceID);
         deviceButton = findViewById(R.id.deviceButton);
         devid = (TextView) findViewById(R.id.devID);
-        did.setText(mDeviceName.toString()+""+mDeviceAddress.toString());
+        did.setText(mDeviceName.toString()+"_"+(int )(Math.random() * 10 ));
+        Controller aController = (Controller)DeviceRegistration.this.getApplicationContext();
 
         //Listener for Button
         deviceButton.setOnClickListener(new View.OnClickListener() {
@@ -89,14 +88,14 @@ public class DeviceRegistration extends Activity {
 
                           try
                           {
-                            URL url = new URL("https://teksystemspoc.cumulocity.com/inventory/managedObjects");
+                            URL url = new URL("https://tek.cumulocity.com/inventory/managedObjects");
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                             conn.setRequestMethod("POST");
                             conn.setRequestProperty("Content-Type","application/json");
                             conn.setRequestProperty("charset","UTF-8");
                             conn.setRequestProperty("ver","0.9");
                             conn.setRequestProperty("Accept","application/vnd.com.nsn.cumulocity.managedObject+json");
-                            conn.setRequestProperty("Authorization","Basic c2thZGhpcmFAdGVrc3lzdGVtcy5jb206VGVrQDEyMw==");
+                            conn.setRequestProperty("Authorization","Basic cHBhdnVsdXJAdGVrc3lzdGVtcy5jb206QWJjZDEyMzQ=");
                             String deviceJSON = "{\n" +
                                     "    \"c8y_IsDevice\" : {},\n" +
                                     "    \"c8y_Position\" : {},\n" +
@@ -164,38 +163,39 @@ public class DeviceRegistration extends Activity {
                           //super.onProgressUpdate(values);
                           devid.setText("Device created and the Device id is "+ values[0]);
                           final Controller aController = (Controller) DeviceRegistration.this.getApplicationContext();
-                          Device device=aController.getDevices();
+                          device device=aController.getDevice(0);
                           device.setDeviceId(values[0]);
-//                          JSONObject jsonParams = new JSONObject();
-//                          try {
-//                              jsonParams.put("emailId", aController.getUserId());
-//                              jsonParams.put("deviceName",device.getDeviceName());
-//                              jsonParams.put("deviceId",device.getDeviceId());
-//                          } catch (JSONException e) {
-//                              e.printStackTrace();
-//                          }
-//                          try {
-//                              jsonEntity = new StringEntity(jsonParams.toString());
-//                          } catch (UnsupportedEncodingException e) {
-//                              e.printStackTrace();
-//                          }
-//                          final Context context = getApplicationContext();
-//                          client.post(context,"HSC-PF0I7Z8N.allegisgroup.com:8081/devices/create",jsonEntity,"application/json",new JsonHttpResponseHandler(){
-//                              @Override
-//                              public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                                  super.onSuccess(statusCode, headers, response);
-//
-//                                  System.out.println("success");
-//                                  Toast.makeText(DeviceRegistration.this,"Device ID set",Toast.LENGTH_LONG);
-//                                  intent = new Intent(DeviceRegistration.this,DeviceScanActivity.class);
-//                              }
-//
-//                              @Override
-//                              public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                                  Toast.makeText(DeviceRegistration.this,"Device ID set failed to service layer",Toast.LENGTH_LONG);
-//                              }
-//
-//                          });
+                          JSONObject jsonParams = new JSONObject();
+                          try {
+
+                              jsonParams.put("deviceId",device.getDeviceId());
+                              jsonParams.put("patientId",aController.getUser().getPatientId());
+                              jsonParams.put("emailId",aController.getUser().getEmailId());
+                          } catch (JSONException e) {
+                              e.printStackTrace();
+                          }
+                          try {
+                              jsonEntity = new StringEntity(jsonParams.toString());
+                          } catch (UnsupportedEncodingException e) {
+                              e.printStackTrace();
+                          }
+                          final Context context = getApplicationContext();
+                          client.post(context,base_path+"/TEKHealthAPI-0.0.1-SNAPSHOT/devices/create",jsonEntity,"application/json",new JsonHttpResponseHandler(){
+                              @Override
+                              public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                  super.onSuccess(statusCode, headers, response);
+
+                                  System.out.println("success");
+                                  Toast.makeText(DeviceRegistration.this,"Device ID set",Toast.LENGTH_LONG);
+                                  intent = new Intent(DeviceRegistration.this,DeviceScanActivity.class);
+                              }
+
+                              @Override
+                              public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                  Toast.makeText(DeviceRegistration.this,"Device ID set failed to service layer",Toast.LENGTH_LONG);
+                              }
+
+                          });
                           Toast.makeText(DeviceRegistration.this,"Device ID set",Toast.LENGTH_LONG);
                           finish();
                       }

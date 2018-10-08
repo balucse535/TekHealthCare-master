@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#CAD888"
+    tools:context=".services.HealthVisualizer">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Steps Tracker"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="23dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/tv1"/>
+
+
+
+        <com.github.mikephil.charting.charts.PieChart
+                android:layout_height="500dp"
+                android:layout_width="match_parent"
+                android:id="@+id/pieChart" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Heart Health"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="23dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/tv2"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:layout_height="400dp"
+            android:layout_width="match_parent"
+            android:id="@+id/lineChart" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Blood Pressure"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="23dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/tv3"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:layout_height="400dp"
+            android:layout_width="match_parent"
+            android:id="@+id/BpChart" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/teksystemslogo" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</ScrollView>

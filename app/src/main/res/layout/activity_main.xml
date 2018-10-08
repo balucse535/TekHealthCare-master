@@ -168,7 +168,7 @@
             android:elevation="5dp"
             android:layout_margin="5dp"
             app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#3d9c3d"
+            app:cardBackgroundColor="#FF3D9C3D"
             android:foreground="?android:selectableItemBackground"
             android:clickable="true"
             android:onClick="selectDevice"
@@ -219,7 +219,7 @@
             android:elevation="5dp"
             android:layout_margin="5dp"
             app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#3d9c3d"
+            app:cardBackgroundColor="#ffab45"
             android:foreground="?android:selectableItemBackground"
             android:clickable="true"
             android:onClick="selectDevice">
@@ -230,7 +230,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/care"
+                    android:src="@drawable/diet_plan"
                     android:alpha="0.30"
                     android:scaleType="fitEnd" />
             </LinearLayout>
@@ -256,7 +256,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="Scheduled Test"
+                    android:text="Diet Plan"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="#FFF"
@@ -269,10 +269,11 @@
             android:elevation="5dp"
             android:layout_margin="5dp"
             app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="#3d9c3d"
+            app:cardBackgroundColor="#b6b645"
             android:foreground="?android:selectableItemBackground"
             android:clickable="true"
-            android:onClick="selectDevice">
+            android:onClick="selectDevice"
+            android:visibility="gone">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

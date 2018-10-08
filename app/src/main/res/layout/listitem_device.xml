@@ -22,10 +22,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/UIlightgray"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,17 +35,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            <TextView android:id="@+id/device_name"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:textSize="24dp"
-                android:textStyle="bold"
-                android:text="Device Name"/>
-            <TextView android:id="@+id/device_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:text="Device MAC Address"/>
+                <TextView android:id="@+id/device_name"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:text="Device Name"/>
+                <TextView android:id="@+id/device_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:text="Device MAC Address"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/signal"
+                        android:layout_gravity="center_vertical"
+                        android:backgroundTint="@color/grey"/>
+                    <TextView
+                        android:paddingLeft="2dp"
+                        android:id="@+id/device_rssi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:text="rssi"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
+
             </LinearLayout>
             <Button
                 android:id="@+id/connect"
@@ -61,10 +77,5 @@
                 android:textColor="#FFFFFF"/>
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/UIlightgray"/>
     </LinearLayout>
 </LinearLayout>
